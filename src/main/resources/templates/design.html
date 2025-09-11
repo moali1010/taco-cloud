@@ -44,7 +44,8 @@
             </div>
 
             <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Determine your veggies:</h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Determine your
+                    veggies:</h3>
                 <div th:each="ingredient : ${veggies}" class="mb-2">
                     <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" class="mr-2"/>
                     <span th:text="${ingredient.name}">INGREDIENT</span>

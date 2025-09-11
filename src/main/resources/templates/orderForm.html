@@ -3,91 +3,91 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Order</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-    <body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
-        <form method="POST" th:action="@{/orders}" th:object="${order}"
-              class="container mx-auto px-4 py-8 max-w-2xl bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1">
-            <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Order your taco creations!</h1>
-            <img th:src="@{/images/TacoCloud.png}" class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg"/>
-            <a th:href="@{/design}" class="block text-center text-blue-500 hover:underline mb-6">Design another taco</a>
+<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
+<form class="container mx-auto px-4 py-8 max-w-2xl bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1" method="POST" th:action="@{/orders}"
+      th:object="${order}">
+    <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Order your taco creations!</h1>
+    <img class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg" th:src="@{/images/TacoCloud.png}"/>
+    <a class="block text-center text-blue-500 hover:underline mb-6" th:href="@{/design}">Design another taco</a>
 
-            <div th:if="${#fields.hasErrors('global')}" class="text-red-500 text-center mb-6">
-                Please correct the problems below and resubmit.
-            </div>
+    <div class="text-red-500 text-center mb-6" th:if="${#fields.hasErrors('global')}">
+        Please correct the problems below and resubmit.
+    </div>
 
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Deliver my taco masterpieces to...</h3>
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Deliver my taco masterpieces to...</h3>
 
-            <div class="mb-4">
-                <label for="name" class="block text-gray-700 mb-2">Name:</label>
-                <input type="text" th:field="*{name}" id="name" placeholder="Your full name"
-                       class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-red-500 block mt-1"></span>
-            </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-2" for="name">Name:</label>
+        <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="name" placeholder="Your full name" th:field="*{name}"
+               type="text"/>
+        <span class="text-red-500 block mt-1" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+    </div>
 
-            <div class="mb-4">
-                <label for="street" class="block text-gray-700 mb-2">Street address:</label>
-                <input type="text" th:field="*{street}" id="street" placeholder="Your street address"
-                       class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                <span th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="text-red-500 block mt-1"></span>
-            </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-2" for="street">Street address:</label>
+        <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="street" placeholder="Your street address" th:field="*{street}"
+               type="text"/>
+        <span class="text-red-500 block mt-1" th:errors="*{street}" th:if="${#fields.hasErrors('street')}"></span>
+    </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div>
-                    <label for="city" class="block text-gray-700 mb-2">City:</label>
-                    <input type="text" th:field="*{city}" id="city" placeholder="City"
-                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                    <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-red-500 block mt-1"></span>
-                </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div>
+            <label class="block text-gray-700 mb-2" for="city">City:</label>
+            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="city" placeholder="City" th:field="*{city}"
+                   type="text"/>
+            <span class="text-red-500 block mt-1" th:errors="*{city}" th:if="${#fields.hasErrors('city')}"></span>
+        </div>
 
-                <div>
-                    <label for="state" class="block text-gray-700 mb-2">State:</label>
-                    <input type="text" th:field="*{state}" id="state" placeholder="State"
-                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                    <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="text-red-500 block mt-1"></span>
-                </div>
+        <div>
+            <label class="block text-gray-700 mb-2" for="state">State:</label>
+            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="state" placeholder="State" th:field="*{state}"
+                   type="text"/>
+            <span class="text-red-500 block mt-1" th:errors="*{state}" th:if="${#fields.hasErrors('state')}"></span>
+        </div>
 
-                <div>
-                    <label for="zip" class="block text-gray-700 mb-2">Zip code:</label>
-                    <input type="text" th:field="*{zip}" id="zip" placeholder="Zip code"
-                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                    <span th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}" class="text-red-500 block mt-1"></span>
-                </div>
-            </div>
+        <div>
+            <label class="block text-gray-700 mb-2" for="zip">Zip code:</label>
+            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="zip" placeholder="Zip code" th:field="*{zip}"
+                   type="text"/>
+            <span class="text-red-500 block mt-1" th:errors="*{zip}" th:if="${#fields.hasErrors('zip')}"></span>
+        </div>
+    </div>
 
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Here's how I'll pay...</h3>
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Here's how I'll pay...</h3>
 
-            <div class="mb-4">
-                <label for="ccNumber" class="block text-gray-700 mb-2">Credit Card #:</label>
-                <input type="text" th:field="*{ccNumber}" id="ccNumber" placeholder="Credit card number"
-                       class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                <span th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}" class="text-red-500 block mt-1"></span>
-            </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-2" for="ccNumber">Credit Card #:</label>
+        <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="ccNumber" placeholder="Credit card number" th:field="*{ccNumber}"
+               type="text"/>
+        <span class="text-red-500 block mt-1" th:errors="*{ccNumber}" th:if="${#fields.hasErrors('ccNumber')}"></span>
+    </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div>
-                    <label for="ccExpiration" class="block text-gray-700 mb-2">Expiration:</label>
-                    <input type="text" th:field="*{ccExpiration}" id="ccExpiration" placeholder="MM/YY"
-                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                    <span th:if="${#fields.hasErrors('ccExpiration')}" th:errors="*{ccExpiration}"
-                          class="text-red-500 block mt-1"></span>
-                </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+            <label class="block text-gray-700 mb-2" for="ccExpiration">Expiration:</label>
+            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="ccExpiration" placeholder="MM/YY" th:field="*{ccExpiration}"
+                   type="text"/>
+            <span class="text-red-500 block mt-1" th:errors="*{ccExpiration}"
+                  th:if="${#fields.hasErrors('ccExpiration')}"></span>
+        </div>
 
-                <div>
-                    <label for="ccCVV" class="block text-gray-700 mb-2">CVV:</label>
-                    <input type="text" th:field="*{ccCVV}" id="ccCVV" placeholder="CVV"
-                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"/>
-                    <span th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}" class="text-red-500 block mt-1"></span>
-                </div>
-            </div>
+        <div>
+            <label class="block text-gray-700 mb-2" for="ccCVV">CVV:</label>
+            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300" id="ccCVV" placeholder="CVV" th:field="*{ccCVV}"
+                   type="text"/>
+            <span class="text-red-500 block mt-1" th:errors="*{ccCVV}" th:if="${#fields.hasErrors('ccCVV')}"></span>
+        </div>
+    </div>
 
-            <input type="submit" value="Submit order"
-                   class="block mx-auto bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1"/>
-        </form>
-    </body>
+    <input class="block mx-auto bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1" type="submit"
+           value="Submit order"/>
+</form>
+</body>
 
 </html>

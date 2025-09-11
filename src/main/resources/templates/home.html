@@ -3,57 +3,57 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Taco Cloud</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Taco Cloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-    <body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex flex-col items-center justify-center text-gray-800">
-        <div class="container mx-auto px-4 py-8 max-w-4xl">
-            <header class="text-center mb-12">
-                <img th:src="@{/images/TacoCloud.png}" alt="Taco Cloud Logo"
-                     class="mx-auto w-48 h-auto rounded-full shadow-lg transform transition duration-300 hover:scale-105"/>
-                <h1 class="text-4xl font-bold text-red-500 mt-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-red-500 after:to-yellow-400">
-                    Welcome to Taco Cloud</h1>
-                <p class="text-lg mt-4 text-gray-600">The most delicious tacos in the world are waiting for you!</p>
-            </header>
+<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex flex-col items-center justify-center text-gray-800">
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <header class="text-center mb-12">
+        <img alt="Taco Cloud Logo" class="mx-auto w-48 h-auto rounded-full shadow-lg transform transition duration-300 hover:scale-105"
+             th:src="@{/images/TacoCloud.png}"/>
+        <h1 class="text-4xl font-bold text-red-500 mt-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-red-500 after:to-yellow-400">
+            Welcome to Taco Cloud</h1>
+        <p class="text-lg mt-4 text-gray-600">The most delicious tacos in the world are waiting for you!</p>
+    </header>
 
-            <section class="bg-white rounded-xl shadow-md p-8 mb-12">
-                <p class="text-center text-gray-700 mb-6">At Taco Cloud, we prepare delicious and unique tacos for you with love
-                    and passion. Fresh ingredients, special recipes, and a taste that you'll remember for a long time!</p>
-                <a th:href="@{/design}"
-                   class="block w-max mx-auto bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1">Start
-                    Designing Your Taco</a>
-            </section>
+    <section class="bg-white rounded-xl shadow-md p-8 mb-12">
+        <p class="text-center text-gray-700 mb-6">At Taco Cloud, we prepare delicious and unique tacos for you with love
+            and passion. Fresh ingredients, special recipes, and a taste that you'll remember for a long time!</p>
+        <a class="block w-max mx-auto bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
+           th:href="@{/design}">Start
+            Designing Your Taco</a>
+    </section>
 
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
-                    <span class="text-5xl mb-4 block">🌮</span>
-                    <h3 class="text-xl font-semibold text-gray-800">Custom Design</h3>
-                    <p class="text-gray-600 mt-2">Use our online design tool to build your taco exactly the way you like it.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
-                    <span class="text-5xl mb-4 block">🚚</span>
-                    <h3 class="text-xl font-semibold text-gray-800">Fast Delivery</h3>
-                    <p class="text-gray-600 mt-2">Your order will arrive hot and fresh in the shortest possible time.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
-                    <span class="text-5xl mb-4 block">🌱</span>
-                    <h3 class="text-xl font-semibold text-gray-800">Fresh Ingredients</h3>
-                    <p class="text-gray-600 mt-2">We use only the freshest and highest quality ingredients for the best taste
-                        experience.</p>
-                </div>
-            </section>
-
-            <footer class="text-center text-gray-500 text-sm">
-                <p>© 2023 Taco Cloud. All rights reserved.</p>
-                <p>Phone: 555-123-4567 | Address: 123 Taco Street, Cloud City</p>
-            </footer>
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
+            <span class="text-5xl mb-4 block">🌮</span>
+            <h3 class="text-xl font-semibold text-gray-800">Custom Design</h3>
+            <p class="text-gray-600 mt-2">Use our online design tool to build your taco exactly the way you like it.</p>
         </div>
-    </body>
+
+        <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
+            <span class="text-5xl mb-4 block">🚚</span>
+            <h3 class="text-xl font-semibold text-gray-800">Fast Delivery</h3>
+            <p class="text-gray-600 mt-2">Your order will arrive hot and fresh in the shortest possible time.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
+            <span class="text-5xl mb-4 block">🌱</span>
+            <h3 class="text-xl font-semibold text-gray-800">Fresh Ingredients</h3>
+            <p class="text-gray-600 mt-2">We use only the freshest and highest quality ingredients for the best taste
+                experience.</p>
+        </div>
+    </section>
+
+    <footer class="text-center text-gray-500 text-sm">
+        <p>© 2023 Taco Cloud. All rights reserved.</p>
+        <p>Phone: 555-123-4567 | Address: 123 Taco Street, Cloud City</p>
+    </footer>
+</div>
+</body>
 
 </html>
