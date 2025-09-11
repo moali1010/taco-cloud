@@ -1,4 +1,5 @@
 package com.example.tacocloud.model;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

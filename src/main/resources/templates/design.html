@@ -10,7 +10,7 @@
 <body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
 <div class="container mx-auto px-4 py-8 max-w-4xl">
     <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Design your taco!</h1>
-    <img th:src="@{/images/TacoCloud.png}" class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg"/>
+    <img class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg" th:src="@{/images/taco-cloud.png}"/>
 
     <form method="POST" th:object="${design}"
           class="bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1">

@@ -1,4 +1,5 @@
 package com.example.tacocloud.model;
+
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
