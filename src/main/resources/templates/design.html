@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Design your taco!</h1>
+    <img th:src="@{/images/TacoCloud.png}" class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg"/>
+
+    <form method="POST" th:object="${design}"
+          class="bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1">
+
+        <div th:if="${#fields.hasGlobalErrors()}" class="text-red-500 text-center mb-6">
+            <span th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Designate your wrap:</h3>
+                <div th:each="ingredient : ${wrap}" class="mb-2">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" class="mr-2"/>
+                    <span th:text="${ingredient.name}">INGREDIENT</span>
+                </div>
+            </div>
+
+            <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Pick your protein:</h3>
+                <div th:each="ingredient : ${protein}" class="mb-2">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" class="mr-2"/>
+                    <span th:text="${ingredient.name}">INGREDIENT</span>
+                </div>
+            </div>
+
+            <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Choose your cheese:</h3>
+                <div th:each="ingredient : ${cheese}" class="mb-2">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" class="mr-2"/>
+                    <span th:text="${ingredient.name}">INGREDIENT</span>
+                </div>
+            </div>
+
+            <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Determine your veggies:</h3>
+                <div th:each="ingredient : ${veggies}" class="mb-2">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" class="mr-2"/>
+                    <span th:text="${ingredient.name}">INGREDIENT</span>
+                </div>
+            </div>
+
+            <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Select your sauce:</h3>
+                <div th:each="ingredient : ${sauce}" class="mb-2">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" class="mr-2"/>
+                    <span th:text="${ingredient.name}">INGREDIENT</span>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${#fields.hasErrors('ingredients')}" class="text-red-500 text-center mb-4">
+            <span th:errors="*{ingredients}"></span>
+        </div>
+
+        <div class="text-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Name your taco creation:</h3>
+            <input type="text" th:field="*{name}"
+                   class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300 mb-2"/>
+
+            <div th:if="${#fields.hasErrors('name')}" class="text-red-500 mb-4">
+                <span th:errors="*{name}"></span>
+            </div>
+            <button type="submit"
+                    class="bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1">
+                Submit your taco
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
