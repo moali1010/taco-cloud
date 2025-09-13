@@ -12,12 +12,21 @@
     <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Design your taco!</h1>
     <img class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg" th:src="@{/images/taco-cloud.png}"/>
 
-    <form method="POST" th:object="${design}"
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" th:if="${saveError}">
+        <span th:text="${saveError}"></span>
+    </div>
+
+    <!-- تغییر مهم: اضافه کردن th:action و CSRF token -->
+    <form method="POST" th:action="@{/design}" th:object="${design}"
           class="bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1">
+
+        <!-- اضافه کردن CSRF Token -->
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
 
         <div th:if="${#fields.hasGlobalErrors()}" class="text-red-500 text-center mb-6">
             <span th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <div class="ingredient-group bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">Designate your wrap:</h3>

@@ -46,39 +46,87 @@ public class DesignTacoController {
     @GetMapping
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepo.findAll().forEach(i -> ingredients.add(i));
+        ingredientRepo.findAll().forEach(ingredients::add);
+
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
-        model.addAttribute("design", new Taco());
+
+        if (!model.containsAttribute("design")) {
+            model.addAttribute("design", new Taco());
+        }
+
         return "design";
     }
 
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-        return ingredients
-                .stream()
+        return ingredients.stream()
                 .filter(x -> x.getType().equals(type))
                 .collect(Collectors.toList());
     }
 
     @PostMapping
     public String processDesign(
-            @Valid @ModelAttribute("design") Taco design, Errors errors, @ModelAttribute Order order, Model model) {
+            @Valid @ModelAttribute("design") Taco design,
+            Errors errors,
+            @ModelAttribute Order order,
+            Model model) {
+
+        log.info("Processing design: " + design);
+
         if (errors.hasErrors()) {
+            log.error("Validation errors: " + errors.getAllErrors());
+
             List<Ingredient> ingredients = new ArrayList<>();
             ingredientRepo.findAll().forEach(ingredients::add);
+
             Type[] types = Ingredient.Type.values();
             for (Type type : types) {
                 model.addAttribute(type.toString().toLowerCase(),
                         filterByType(ingredients, type));
             }
+
             return "design";
         }
-        Taco saved = designRepo.save(design);
-        order.addDesign(saved);
-        log.info("Processing design: " + design);
-        return "redirect:/orders/current";
+
+        if (design.getIngredients() == null || design.getIngredients().isEmpty()) {
+            errors.rejectValue("ingredients", "ingredients.required", "You must choose at least 1 ingredient");
+
+            List<Ingredient> ingredients = new ArrayList<>();
+            ingredientRepo.findAll().forEach(ingredients::add);
+
+            Type[] types = Ingredient.Type.values();
+            for (Type type : types) {
+                model.addAttribute(type.toString().toLowerCase(),
+                        filterByType(ingredients, type));
+            }
+
+            return "design";
+        }
+
+        try {
+            Taco saved = designRepo.save(design);
+            order.addDesign(saved);
+            log.info("Saved taco with ID: " + saved.getId());
+
+            return "redirect:/orders/current";
+        } catch (Exception e) {
+            log.error("Error saving taco: " + e.getMessage(), e);
+
+            model.addAttribute("saveError", "There was an error saving your taco. Please try again.");
+
+            List<Ingredient> ingredients = new ArrayList<>();
+            ingredientRepo.findAll().forEach(ingredients::add);
+
+            Type[] types = Ingredient.Type.values();
+            for (Type type : types) {
+                model.addAttribute(type.toString().toLowerCase(),
+                        filterByType(ingredients, type));
+            }
+
+            return "design";
+        }
     }
 }

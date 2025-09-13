@@ -19,12 +19,12 @@ public class Taco {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    //    @ManyToMany(targetEntity = Ingredient.class)
+
     @ManyToMany
     @JoinTable(
             name = "Taco_Ingredients",
-            joinColumns = @JoinColumn(name = "taco"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient")
+            joinColumns = @JoinColumn(name = "taco_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
     @Size(min = 1, message = "You must choose at least 1 ingredient")
     private List<Ingredient> ingredients = new ArrayList<>();
@@ -40,5 +40,9 @@ public class Taco {
 
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);
+    }
+
+    public boolean hasIngredients() {
+        return ingredients != null && !ingredients.isEmpty();
     }
 }

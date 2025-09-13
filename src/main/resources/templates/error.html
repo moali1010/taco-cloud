@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
+<div class="container mx-auto px-4 py-8 max-w-md text-center">
+    <div class="bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1">
+        <h1 class="text-3xl font-bold text-red-500 mb-6">Oops! Something went wrong</h1>
+        <img class="mx-auto w-32 h-auto mb-6 rounded-full shadow-lg" th:src="@{/images/taco-cloud.png}"/>
+
+        <p class="text-gray-600 mb-6">We're sorry, but something went wrong on our end.</p>
+
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" th:if="${error}">
+            <p class="font-bold">Error:</p>
+            <p th:text="${error}"></p>
+        </div>
+
+        <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-6" th:if="${message}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <div class="mb-4" th:if="${status}">
+            <p class="text-gray-600">Status code: <span class="font-semibold" th:text="${status}"></span></p>
+        </div>
+
+        <a class="inline-block bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
+           th:href="@{/}">Go back to home</a>
+    </div>
+</div>
+</body>
+</html>
