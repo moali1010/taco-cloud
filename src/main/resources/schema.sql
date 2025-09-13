@@ -14,7 +14,6 @@ create table if not exists Ingredient
     10
 ) not null
     );
-
 create table if not exists Taco
 (
     id
@@ -28,7 +27,6 @@ create table if not exists Taco
 ) not null,
     createdAt timestamp not null
     );
-
 create table if not exists Taco_Ingredients
 (
     taco
@@ -39,14 +37,17 @@ create table if not exists Taco_Ingredients
     varchar
 (
     4
-) not null
+) not null,
+    primary key
+(
+    taco,
+    ingredient
+)
     );
-
 alter table Taco_Ingredients
     add foreign key (taco) references Taco (id);
 alter table Taco_Ingredients
     add foreign key (ingredient) references Ingredient (id);
-
 create table if not exists Taco_Order
 (
     id
@@ -88,7 +89,6 @@ create table if not exists Taco_Order
 ) not null,
     placedAt timestamp not null
     );
-
 create table if not exists Taco_Order_Tacos
 (
     tacoOrder
@@ -98,10 +98,26 @@ create table if not exists Taco_Order_Tacos
     taco
     bigint
     not
-    null
+    null,
+    primary
+    key
+(
+    tacoOrder,
+    taco
+)
 );
-
 alter table Taco_Order_Tacos
     add foreign key (tacoOrder) references Taco_Order (id);
 alter table Taco_Order_Tacos
     add foreign key (taco) references Taco (id);
+INSERT INTO Ingredient (id, name, type)
+VALUES ('FLTO', 'Flour Tortilla', 'WRAP'),
+       ('COTO', 'Corn Tortilla', 'WRAP'),
+       ('GRBF', 'Ground Beef', 'PROTEIN'),
+       ('CARN', 'Carnitas', 'PROTEIN'),
+       ('TMTO', 'Diced Tomatoes', 'VEGGIES'),
+       ('LETC', 'Lettuce', 'VEGGIES'),
+       ('CHED', 'Cheddar', 'CHEESE'),
+       ('JACK', 'Monterrey Jack', 'CHEESE'),
+       ('SLSA', 'Salsa', 'SAUCE'),
+       ('SRCR', 'Sour Cream', 'SAUCE');
