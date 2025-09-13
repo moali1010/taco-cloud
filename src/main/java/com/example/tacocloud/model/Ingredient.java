@@ -4,24 +4,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+//@RequiredArgsConstructor
+//@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ingredient {
 
     @Id
-    private final String id;
+    private String id;
 
-    private final String name;
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    private final Type type;
+    private Type type;
 
     public static enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
