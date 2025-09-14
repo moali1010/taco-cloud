@@ -31,12 +31,6 @@ public class DesignTacoController {
         this.designRepo = designRepo;
     }
 
-//    @Autowired
-//    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo) {
-//        this.ingredientRepo = ingredientRepo;
-//        this.designRepo = designRepo;
-//    }
-
     @ModelAttribute(name = "order")
     public Order order() {
         return new Order();
@@ -51,17 +45,14 @@ public class DesignTacoController {
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(ingredients::add);
-
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
-
         if (!model.containsAttribute("design")) {
             model.addAttribute("design", new Taco());
         }
-
         return "design";
     }
 
@@ -77,59 +68,44 @@ public class DesignTacoController {
             Errors errors,
             @ModelAttribute Order order,
             Model model) {
-
         log.info("Processing design: " + design);
-
         if (errors.hasErrors()) {
             log.error("Validation errors: " + errors.getAllErrors());
-
             List<Ingredient> ingredients = new ArrayList<>();
             ingredientRepo.findAll().forEach(ingredients::add);
-
             Type[] types = Ingredient.Type.values();
             for (Type type : types) {
                 model.addAttribute(type.toString().toLowerCase(),
                         filterByType(ingredients, type));
             }
-
             return "design";
         }
-
         if (design.getIngredients() == null || design.getIngredients().isEmpty()) {
             errors.rejectValue("ingredients", "ingredients.required", "You must choose at least 1 ingredient");
-
             List<Ingredient> ingredients = new ArrayList<>();
             ingredientRepo.findAll().forEach(ingredients::add);
-
             Type[] types = Ingredient.Type.values();
             for (Type type : types) {
                 model.addAttribute(type.toString().toLowerCase(),
                         filterByType(ingredients, type));
             }
-
             return "design";
         }
-
         try {
             Taco saved = designRepo.save(design);
             order.addDesign(saved);
             log.info("Saved taco with ID: " + saved.getId());
-
             return "redirect:/orders/current";
         } catch (Exception e) {
             log.error("Error saving taco: " + e.getMessage(), e);
-
             model.addAttribute("saveError", "There was an error saving your taco. Please try again.");
-
             List<Ingredient> ingredients = new ArrayList<>();
             ingredientRepo.findAll().forEach(ingredients::add);
-
             Type[] types = Ingredient.Type.values();
             for (Type type : types) {
                 model.addAttribute(type.toString().toLowerCase(),
                         filterByType(ingredients, type));
             }
-
             return "design";
         }
     }

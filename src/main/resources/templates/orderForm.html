@@ -1,103 +1,134 @@
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Order</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Taco Cloud - سفارش</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {light: '#3ABFF8', DEFAULT: '#0EA5E9', dark: '#0284C7'},
+                        gray: {750: '#2A303C', 850: '#1F2937', 950: '#0F172A'}
+                    },
+                    fontFamily: {sans: ['Inter', 'system-ui', 'sans-serif']}
+                }
+            }
+        }
+    </script>
 </head>
-
-<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
-<form class="container mx-auto px-4 py-8 max-w-2xl bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
-      method="POST" th:action="@{/orders}"
-      th:object="${order}">
-    <h1 class="text-3xl font-bold text-center text-red-500 mb-8">Order your taco creations!</h1>
-    <img class="mx-auto w-40 h-auto mb-8 rounded-full shadow-lg" th:src="@{/images/taco-cloud.png}"/>
-    <a class="block text-center text-blue-500 hover:underline mb-6" th:href="@{/design}">Design another taco</a>
-
-    <div class="text-red-500 text-center mb-6" th:if="${#fields.hasErrors('global')}">
-        Please correct the problems below and resubmit.
-    </div>
-
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Deliver my taco masterpieces to...</h3>
-
-    <div class="mb-4">
-        <label class="block text-gray-700 mb-2" for="name">Name:</label>
-        <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-               id="name" placeholder="Your full name" th:field="*{name}"
-               type="text"/>
-        <span class="text-red-500 block mt-1" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
-    </div>
-
-    <div class="mb-4">
-        <label class="block text-gray-700 mb-2" for="street">Street address:</label>
-        <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-               id="street" placeholder="Your street address" th:field="*{street}"
-               type="text"/>
-        <span class="text-red-500 block mt-1" th:errors="*{street}" th:if="${#fields.hasErrors('street')}"></span>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div>
-            <label class="block text-gray-700 mb-2" for="city">City:</label>
-            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-                   id="city" placeholder="City" th:field="*{city}"
-                   type="text"/>
-            <span class="text-red-500 block mt-1" th:errors="*{city}" th:if="${#fields.hasErrors('city')}"></span>
+<body class="min-h-screen flex flex-col">
+<nav class="bg-gray-900 border-b border-gray-800 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2 space-x-reverse">
+            <div class="w-8 h-8 bg-primary-DEFAULT rounded-md flex items-center justify-center">
+                <i class="fas fa-utensils text-white"></i>
+            </div>
+            <span class="text-xl font-bold text-white">Taco Cloud</span>
         </div>
-
-        <div>
-            <label class="block text-gray-700 mb-2" for="state">State:</label>
-            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-                   id="state" placeholder="State" th:field="*{state}"
-                   type="text"/>
-            <span class="text-red-500 block mt-1" th:errors="*{state}" th:if="${#fields.hasErrors('state')}"></span>
+        <div class="hidden md:flex space-x-6 space-x-reverse">
+            <a class="nav-item text-gray-300" th:href="@{/}"><i class="fas fa-home ml-2"></i>صفحه اصلی</a>
+            <a class="nav-item text-gray-300" th:href="@{/design}"><i class="fas fa-pen ml-2"></i>طراحی تاکو</a>
+            <a class="nav-item text-gray-300" th:href="@{/login}"><i class="fas fa-sign-in-alt ml-2"></i>ورود</a>
+            <a class="nav-item text-gray-300" th:href="@{/register}"><i class="fas fa-user-plus ml-2"></i>ثبت نام</a>
         </div>
-
-        <div>
-            <label class="block text-gray-700 mb-2" for="zip">Zip code:</label>
-            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-                   id="zip" placeholder="Zip code" th:field="*{zip}"
-                   type="text"/>
-            <span class="text-red-500 block mt-1" th:errors="*{zip}" th:if="${#fields.hasErrors('zip')}"></span>
+        <div class="md:hidden">
+            <button class="text-gray-300"><i class="fas fa-bars text-xl"></i></button>
         </div>
     </div>
-
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Here's how I'll pay...</h3>
-
-    <div class="mb-4">
-        <label class="block text-gray-700 mb-2" for="ccNumber">Credit Card #:</label>
-        <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-               id="ccNumber" placeholder="Credit card number" th:field="*{ccNumber}"
-               type="text"/>
-        <span class="text-red-500 block mt-1" th:errors="*{ccNumber}" th:if="${#fields.hasErrors('ccNumber')}"></span>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div>
-            <label class="block text-gray-700 mb-2" for="ccExpiration">Expiration:</label>
-            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-                   id="ccExpiration" placeholder="MM/YY" th:field="*{ccExpiration}"
-                   type="text"/>
-            <span class="text-red-500 block mt-1" th:errors="*{ccExpiration}"
-                  th:if="${#fields.hasErrors('ccExpiration')}"></span>
+</nav>
+<div class="flex flex-1">
+    <aside class="w-64 bg-gray-900 border-l border-gray-800 p-6 hidden md:block">
+        <div class="mb-8">
+            <h2 class="text-sm font-semibold text-gray-400 mb-4">منو</h2>
+            <div class="space-y-2">
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light" th:href="@{/}"><i
+                        class="fas fa-home ml-2"></i>صفحه اصلی</a>
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light" th:href="@{/design}"><i
+                        class="fas fa-pen ml-2"></i>طراحی تاکو</a>
+                <a class="sidebar-item block p-2 text-sm text-primary-light" th:href="@{/orders/current}"><i
+                        class="fas fa-shopping-cart ml-2"></i>سفارشات</a>
+            </div>
         </div>
-
-        <div>
-            <label class="block text-gray-700 mb-2" for="ccCVV">CVV:</label>
-            <input class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-300"
-                   id="ccCVV" placeholder="CVV" th:field="*{ccCVV}"
-                   type="text"/>
-            <span class="text-red-500 block mt-1" th:errors="*{ccCVV}" th:if="${#fields.hasErrors('ccCVV')}"></span>
+    </aside>
+    <main class="flex-1 p-6">
+        <div class="max-w-2xl mx-auto">
+            <header class="mb-12">
+                <h1 class="text-4xl font-bold text-white mb-4">سفارش تاکوهای خود</h1>
+                <a class="block text-primary-light hover:underline mb-6" th:href="@{/design}">طراحی تاکو دیگر</a>
+            </header>
+            <hr class="border-gray-700 my-8">
+            <form class="space-y-6" method="POST" th:action="@{/orders}" th:object="${order}">
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <div class="bg-red-900/20 border border-red-800 text-red-300 px-4 py-3 rounded mb-6"
+                     th:if="${#fields.hasGlobalErrors()}">لطفاً مشکلات زیر را
+                    اصلاح کنید و دوباره ارسال نمایید.
+                </div>
+                <h2 class="text-2xl font-semibold text-white mb-6">تحویل تاکو به...</h2>
+                <div class="ingredient-group space-y-4">
+                    <div><label class="block text-sm font-medium text-gray-300 mb-2">نام</label><input class="form-input"
+                                                                                                       placeholder="نام کامل شما"
+                                                                                                       th:field="*{name}"
+                                                                                                       type="text"><span
+                            class="error-message" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span></div>
+                    <div><label class="block text-sm font-medium text-gray-300 mb-2">آدرس خیابان</label><input
+                            class="form-input" placeholder="آدرس خیابان شما" th:field="*{street}" type="text"><span
+                            class="error-message" th:errors="*{street}" th:if="${#fields.hasErrors('street')}"></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><label class="block text-sm font-medium text-gray-300 mb-2">شهر</label><input class="form-input"
+                                                                                                           placeholder="شهر"
+                                                                                                           th:field="*{city}"
+                                                                                                           type="text"><span
+                                class="error-message" th:errors="*{city}" th:if="${#fields.hasErrors('city')}"></span>
+                        </div>
+                        <div><label class="block text-sm font-medium text-gray-300 mb-2">استان</label><input class="form-input"
+                                                                                                             placeholder="استان"
+                                                                                                             th:field="*{state}"
+                                                                                                             type="text"><span
+                                class="error-message" th:errors="*{state}" th:if="${#fields.hasErrors('state')}"></span>
+                        </div>
+                        <div><label class="block text-sm font-medium text-gray-300 mb-2">کد پستی</label><input
+                                class="form-input" placeholder="کد پستی" th:field="*{zip}" type="text"><span
+                                class="error-message" th:errors="*{zip}" th:if="${#fields.hasErrors('zip')}"></span>
+                        </div>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-white mb-6">نحوه پرداخت...</h2>
+                    <div><label class="block text-sm font-medium text-gray-300 mb-2">شماره کارت اعتباری</label><input
+                            class="form-input" placeholder="شماره کارت اعتباری" th:field="*{ccNumber}" type="text"><span
+                            class="error-message" th:errors="*{ccNumber}"
+                            th:if="${#fields.hasErrors('ccNumber')}"></span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium text-gray-300 mb-2">انقضا</label><input class="form-input"
+                                                                                                             placeholder="MM/YY"
+                                                                                                             th:field="*{ccExpiration}"
+                                                                                                             type="text"><span
+                                class="error-message" th:errors="*{ccExpiration}"
+                                th:if="${#fields.hasErrors('ccExpiration')}"></span></div>
+                        <div><label class="block text-sm font-medium text-gray-300 mb-2">CVV</label><input class="form-input"
+                                                                                                           placeholder="CVV"
+                                                                                                           th:field="*{ccCVV}"
+                                                                                                           type="text"><span
+                                class="error-message" th:errors="*{ccCVV}" th:if="${#fields.hasErrors('ccCVV')}"></span>
+                        </div>
+                    </div>
+                    <button class="btn-primary w-full inline-flex items-center" type="submit"><i
+                            class="fas fa-check ml-2"></i>ثبت سفارش
+                    </button>
+                </div>
+            </form>
         </div>
+    </main>
+</div>
+<footer class="bg-gray-900 border-t border-gray-800 py-6 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <h3 class="text-lg font-semibold text-white mb-4">تماس با ما</h3>
+        <p class="text-gray-400">تلفن: ۰۲۱-۲۳۴۵۶۷۸</p>
     </div>
-
-    <input class="block mx-auto bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
-           type="submit"
-           value="Submit order"/>
-</form>
+</footer>
 </body>
-
 </html>

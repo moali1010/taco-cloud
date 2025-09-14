@@ -1,35 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Error</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Taco Cloud - خطا</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {light: '#3ABFF8', DEFAULT: '#0EA5E9', dark: '#0284C7'},
+                        gray: {750: '#2A303C', 850: '#1F2937', 950: '#0F172A'}
+                    },
+                    fontFamily: {sans: ['Inter', 'system-ui', 'sans-serif']}
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex items-center justify-center text-gray-800">
-<div class="container mx-auto px-4 py-8 max-w-md text-center">
-    <div class="bg-white rounded-xl shadow-md p-8 hover:shadow-xl transform transition duration-300 hover:-translate-y-1">
-        <h1 class="text-3xl font-bold text-red-500 mb-6">Oops! Something went wrong</h1>
-        <img class="mx-auto w-32 h-auto mb-6 rounded-full shadow-lg" th:src="@{/images/taco-cloud.png}"/>
-
-        <p class="text-gray-600 mb-6">We're sorry, but something went wrong on our end.</p>
-
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" th:if="${error}">
-            <p class="font-bold">Error:</p>
-            <p th:text="${error}"></p>
+<body class="min-h-screen flex flex-col bg-gray-950">
+<nav class="bg-gray-900 border-b border-gray-800 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2 space-x-reverse">
+            <div class="w-8 h-8 bg-primary-DEFAULT rounded-md flex items-center justify-center">
+                <i class="fas fa-utensils text-white"></i>
+            </div>
+            <span class="text-xl font-bold text-white">Taco Cloud</span>
         </div>
-
-        <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-6" th:if="${message}">
-            <p th:text="${message}"></p>
+        <div class="hidden md:flex space-x-6 space-x-reverse">
+            <a class="nav-item text-gray-300" th:href="@{/}"><i class="fas fa-home ml-2"></i>صفحه اصلی</a>
+            <a class="nav-item text-gray-300" th:href="@{/design}"><i class="fas fa-pen ml-2"></i>طراحی تاکو</a>
+            <a class="nav-item text-gray-300" th:href="@{/login}"><i class="fas fa-sign-in-alt ml-2"></i>ورود</a>
+            <a class="nav-item text-gray-300" th:href="@{/register}"><i class="fas fa-user-plus ml-2"></i>ثبت نام</a>
         </div>
-
-        <div class="mb-4" th:if="${status}">
-            <p class="text-gray-600">Status code: <span class="font-semibold" th:text="${status}"></span></p>
+        <div class="md:hidden">
+            <button class="text-gray-300"><i class="fas fa-bars text-xl"></i></button>
         </div>
-
-        <a class="inline-block bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
-           th:href="@{/}">Go back to home</a>
     </div>
+</nav>
+<div class="flex flex-1 bg-gray-950">
+    <aside class="w-64 bg-gray-900 border-l border-gray-800 p-6 hidden md:block">
+        <div class="mb-8">
+            <h2 class="text-sm font-semibold text-gray-400 mb-4">منو</h2>
+            <div class="space-y-2">
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light" th:href="@{/}"><i
+                        class="fas fa-home ml-2"></i>صفحه اصلی</a>
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light" th:href="@{/design}"><i
+                        class="fas fa-pen ml-2"></i>طراحی تاکو</a>
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light"
+                   th:href="@{/orders/current}"><i
+                        class="fas fa-shopping-cart ml-2"></i>سفارشات</a>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 p-6 bg-gray-950">
+        <div class="max-w-md mx-auto text-center">
+            <header class="mb-12">
+                <h1 class="text-4xl font-bold text-white mb-4">اوپس! مشکلی پیش آمده</h1>
+                <img class="mx-auto w-32 h-auto mb-6 rounded shadow-sm" th:src="@{/images/taco-cloud.png}"/>
+            </header>
+            <hr class="border-gray-700 my-8">
+            <p class="text-gray-300 mb-6">متأسفانه، مشکلی از سمت ما پیش آمده است.</p>
+            <div class="bg-red-900/20 border border-red-800 text-red-300 px-4 py-3 rounded mb-6 space-y-1"
+                 th:if="${error}"><p
+                    class="font-medium">خطا:</p>
+                <p th:text="${error}"></p></div>
+            <div class="bg-blue-900/20 border border-blue-800 text-blue-300 px-4 py-3 rounded mb-6" th:if="${message}">
+                <p th:text="${message}"></p></div>
+            <div class="mb-4" th:if="${status}"><p class="text-gray-300">کد وضعیت: <span class="font-medium"
+                                                                                         th:text="${status}"></span></p>
+            </div>
+            <a class="btn-primary inline-flex items-center" th:href="@{/}"><i class="fas fa-home ml-2"></i>بازگشت به
+                صفحه اصلی</a>
+        </div>
+    </main>
 </div>
+<footer class="bg-gray-900 border-t border-gray-800 py-6 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <h3 class="text-lg font-semibold text-white mb-4">تماس با ما</h3>
+        <p class="text-gray-400">تلفن: ۰۲۱-۲۳۴۵۶۷۸</p>
+    </div>
+</footer>
 </body>
 </html>

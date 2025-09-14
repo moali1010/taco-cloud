@@ -30,30 +30,25 @@ public class OrderController {
         if (!model.containsAttribute("order")) {
             model.addAttribute("order", new Order());
         }
-
         Order order = (Order) model.getAttribute("order");
         if (order != null) {
             log.info("Order form loaded with " + (order.getTacos() != null ? order.getTacos().size() : 0) + " tacos");
         }
-
         return "orderForm";
     }
 
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus, Model model) {
         log.info("Processing order: " + order);
-
         if (errors.hasErrors()) {
             log.error("Order validation errors: " + errors.getAllErrors());
             return "orderForm";
         }
-
         if (order.getTacos() == null || order.getTacos().isEmpty()) {
             log.error("Order has no tacos");
             errors.reject("tacos.required", "Your order must include at least one taco");
             return "orderForm";
         }
-
         try {
             orderRepo.save(order);
             sessionStatus.setComplete(); // پاک کردن session attribute

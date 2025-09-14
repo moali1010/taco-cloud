@@ -1,60 +1,98 @@
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Taco Cloud</title>
+    <title>Taco Cloud - صفحه اصلی</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {light: '#3ABFF8', DEFAULT: '#0EA5E9', dark: '#0284C7'},
+                        gray: {750: '#2A303C', 850: '#1F2937', 950: '#0F172A'}
+                    },
+                    fontFamily: {sans: ['Inter', 'system-ui', 'sans-serif']}
+                }
+            }
+        }
+    </script>
 </head>
-
-<body class="bg-gradient-to-br from-gray-100 to-blue-200 min-h-screen flex flex-col items-center justify-center text-gray-800">
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-    <header class="text-center mb-12">
-        <img alt="Taco Cloud Logo"
-             class="mx-auto w-48 h-auto rounded-full shadow-lg transform transition duration-300 hover:scale-105"
-             th:src="@{/images/taco-cloud.png}"/>
-        <h1 class="text-4xl font-bold text-red-500 mt-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-red-500 after:to-yellow-400">
-            Welcome to Taco Cloud</h1>
-        <p class="text-lg mt-4 text-gray-600">The most delicious tacos in the world are waiting for you!</p>
-    </header>
-
-    <section class="bg-white rounded-xl shadow-md p-8 mb-12">
-        <p class="text-center text-gray-700 mb-6">At Taco Cloud, we prepare delicious and unique tacos for you with love
-            and passion. Fresh ingredients, special recipes, and a taste that you'll remember for a long time!</p>
-        <a class="block w-max mx-auto bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
-           th:href="@{/design}">Start
-            Designing Your Taco</a>
-    </section>
-
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
-            <span class="text-5xl mb-4 block">🌮</span>
-            <h3 class="text-xl font-semibold text-gray-800">Custom Design</h3>
-            <p class="text-gray-600 mt-2">Use our online design tool to build your taco exactly the way you like it.</p>
+<body class="min-h-screen flex flex-col bg-gray-950">
+<nav class="bg-gray-900 border-b border-gray-800 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2 space-x-reverse">
+            <div class="w-8 h-8 bg-primary-DEFAULT rounded-md flex items-center justify-center">
+                <i class="fas fa-utensils text-white"></i>
+            </div>
+            <span class="text-xl font-bold text-white">Taco Cloud</span>
         </div>
-
-        <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
-            <span class="text-5xl mb-4 block">🚚</span>
-            <h3 class="text-xl font-semibold text-gray-800">Fast Delivery</h3>
-            <p class="text-gray-600 mt-2">Your order will arrive hot and fresh in the shortest possible time.</p>
+        <div class="hidden md:flex space-x-6 space-x-reverse">
+            <a class="nav-item text-primary-light" th:href="@{/}"><i class="fas fa-home ml-2"></i>صفحه اصلی</a>
+            <a class="nav-item text-gray-300" th:href="@{/design}"><i class="fas fa-pen ml-2"></i>طراحی تاکو</a>
+            <a class="nav-item text-gray-300" th:href="@{/login}"><i class="fas fa-sign-in-alt ml-2"></i>ورود</a>
+            <a class="nav-item text-gray-300" th:href="@{/register}"><i class="fas fa-user-plus ml-2"></i>ثبت نام</a>
         </div>
-
-        <div class="bg-white rounded-xl shadow-md p-6 text-center transform transition duration-300 hover:scale-105">
-            <span class="text-5xl mb-4 block">🌱</span>
-            <h3 class="text-xl font-semibold text-gray-800">Fresh Ingredients</h3>
-            <p class="text-gray-600 mt-2">We use only the freshest and highest quality ingredients for the best taste
-                experience.</p>
+        <div class="md:hidden">
+            <button class="text-gray-300"><i class="fas fa-bars text-xl"></i></button>
         </div>
-    </section>
-
-    <footer class="text-center text-gray-500 text-sm">
-        <p>© 2023 Taco Cloud. All rights reserved.</p>
-        <p>Phone: 555-123-4567 | Address: 123 Taco Street, Cloud City</p>
-    </footer>
+    </div>
+</nav>
+<div class="flex flex-1 bg-gray-950">
+    <aside class="w-64 bg-gray-900 border-l border-gray-800 p-6 hidden md:block">
+        <div class="mb-8">
+            <h2 class="text-sm font-semibold text-gray-400 mb-4">منو</h2>
+            <div class="space-y-2">
+                <a class="sidebar-item block p-2 text-sm text-primary-light" th:href="@{/}"><i
+                        class="fas fa-home ml-2"></i>صفحه اصلی</a>
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light" th:href="@{/design}"><i
+                        class="fas fa-pen ml-2"></i>طراحی تاکو</a>
+                <a class="sidebar-item block p-2 text-sm text-gray-300 hover:text-primary-light"
+                   th:href="@{/orders/current}"><i
+                        class="fas fa-shopping-cart ml-2"></i>سفارشات</a>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 p-6 bg-gray-950">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-12">
+                <h1 class="text-4xl font-bold text-white mb-4">طراحی تاکوی خودتان</h1>
+                <p class="text-lg text-gray-300 mb-6">با استفاده از مواد اولیه تازه و با کیفیت، تاکوی دلخواه خود را
+                    طراحی کنید.</p>
+                <a class="btn-primary inline-flex items-center" th:href="@{/design}"><i
+                        class="fas fa-arrow-left mr-2"></i>شروع طراحی</a>
+            </header>
+            <hr class="border-gray-700 my-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="ingredient-group text-center space-y-2">
+                    <i class="fas fa-pen text-primary-light text-3xl"></i>
+                    <h3 class="text-lg font-medium text-white">طراحی سفارشی</h3>
+                    <p class="text-gray-300 text-sm">از ابزار آنلاین ما برای ساخت تاکو دقیقاً به سلیقه خود استفاده
+                        کنید.</p>
+                </div>
+                <div class="ingredient-group text-center space-y-2">
+                    <i class="fas fa-shipping-fast text-primary-light text-3xl"></i>
+                    <h3 class="text-lg font-medium text-white">تحویل سریع</h3>
+                    <p class="text-gray-300 text-sm">سفارش شما در کوتاه‌ترین زمان ممکن داغ و تازه تحویل داده می‌شود.</p>
+                </div>
+                <div class="ingredient-group text-center space-y-2">
+                    <i class="fas fa-leaf text-primary-light text-3xl"></i>
+                    <h3 class="text-lg font-medium text-white">مواد تازه</h3>
+                    <p class="text-gray-300 text-sm">فقط از تازه‌ترین و باکیفیت‌ترین مواد برای بهترین تجربه طعم استفاده
+                        می‌کنیم.</p>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
+<footer class="bg-gray-900 border-t border-gray-800 py-6 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <h3 class="text-lg font-semibold text-white mb-4">تماس با ما</h3>
+        <p class="text-gray-400">تلفن: ۰۲۱-۲۳۴۵۶۷۸</p>
+    </div>
+</footer>
 </body>
-
 </html>

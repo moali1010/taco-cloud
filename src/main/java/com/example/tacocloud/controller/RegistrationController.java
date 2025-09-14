@@ -35,15 +35,12 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-
         if (userRepo.findByUsername(user.getUsername()).isPresent()) {
             model.addAttribute("usernameError", "Username already exists");
             return "register";
         }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
-
         return "redirect:/login?registered=true";
     }
 }

@@ -9,8 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-//@RequiredArgsConstructor
-//@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,9 +16,7 @@ public class Ingredient {
 
     @Id
     private String id;
-
     private String name;
-
     @Enumerated(EnumType.STRING)
     private Type type;
 

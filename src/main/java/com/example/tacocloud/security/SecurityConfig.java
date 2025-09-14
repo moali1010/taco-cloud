@@ -40,7 +40,6 @@ public class SecurityConfig {
                         .key("uniqueAndSecret")
                         .tokenValiditySeconds(86400) // 24 hours
                 );
-
         return http.build();
     }
 
