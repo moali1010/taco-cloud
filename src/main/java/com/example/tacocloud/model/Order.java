@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,8 +22,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date placedAt;
+    //    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime placedAt;
     @NotBlank(message = "Name is required")
     @Column(name = "deliveryName")
     private String name;
@@ -60,7 +60,7 @@ public class Order {
 
     @PrePersist
     void placedAt() {
-        this.placedAt = new Date();
+        this.placedAt = LocalDateTime.now();
     }
 
     public void addDesign(Taco saved) {

@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,8 +17,8 @@ public class Taco {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    //    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
 
     @ManyToMany
     @JoinTable(
@@ -35,7 +35,7 @@ public class Taco {
 
     @PrePersist
     void createdAt() {
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now();
     }
 
     public void addIngredient(Ingredient ingredient) {
