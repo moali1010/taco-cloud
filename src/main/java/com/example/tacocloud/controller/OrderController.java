@@ -1,7 +1,7 @@
 package com.example.tacocloud.controller;
 
 import com.example.tacocloud.model.Order;
-import com.example.tacocloud.repository.OrderRepository;
+import com.example.tacocloud.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("order")
 public class OrderController {
 
-    private final OrderRepository orderRepo;
+    private final OrderService orderService;
 
-    public OrderController(OrderRepository orderRepo) {
-        this.orderRepo = orderRepo;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @GetMapping("/current")
@@ -32,30 +32,31 @@ public class OrderController {
         }
         Order order = (Order) model.getAttribute("order");
         if (order != null) {
-            log.info("Order form loaded with " + (order.getTacos() != null ? order.getTacos().size() : 0) + " tacos");
+            log.info("Order form loaded with {} tacos",
+                    order.getTacos() != null ? order.getTacos().size() : 0);
         }
         return "orderForm";
     }
 
     @PostMapping
-    public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus, Model model) {
-        log.info("Processing order: " + order);
-        if (errors.hasErrors()) {
-            log.error("Order validation errors: " + errors.getAllErrors());
+    public String processOrder(@Valid Order order,
+                               Errors errors,
+                               SessionStatus sessionStatus,
+                               Model model) {
+        log.info("Processing order: {}", order);
+
+        if (errors.hasErrors() || !orderService.isValid(order, errors)) {
+            log.error("Order validation failed: {}", errors.getAllErrors());
             return "orderForm";
         }
-        if (order.getTacos() == null || order.getTacos().isEmpty()) {
-            log.error("Order has no tacos");
-            errors.reject("tacos.required", "Your order must include at least one taco");
-            return "orderForm";
-        }
+
         try {
-            orderRepo.save(order);
-            sessionStatus.setComplete(); // پاک کردن session attribute
-            log.info("Order submitted: " + order);
+            orderService.saveOrder(order);
+            sessionStatus.setComplete();
+            log.info("Order submitted successfully");
             return "redirect:/";
         } catch (Exception e) {
-            log.error("Error saving order: " + e.getMessage(), e);
+            log.error("Error saving order: {}", e.getMessage(), e);
             model.addAttribute("saveError", "There was an error saving your order. Please try again.");
             return "orderForm";
         }
