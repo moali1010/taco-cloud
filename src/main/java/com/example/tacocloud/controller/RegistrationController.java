@@ -1,9 +1,8 @@
 package com.example.tacocloud.controller;
 
 import com.example.tacocloud.model.User;
-import com.example.tacocloud.repository.UserRepository;
+import com.example.tacocloud.service.RegistrationService;
 import jakarta.validation.Valid;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegistrationController {
 
-    private final UserRepository userRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final RegistrationService registrationService;
 
-    public RegistrationController(UserRepository userRepo, PasswordEncoder passwordEncoder) {
-        this.userRepo = userRepo;
-        this.passwordEncoder = passwordEncoder;
+    public RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
     }
 
     @GetMapping("/register")
@@ -35,12 +32,13 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        if (userRepo.findByUsername(user.getUsername()).isPresent()) {
+
+        if (registrationService.usernameExists(user.getUsername())) {
             model.addAttribute("usernameError", "Username already exists");
             return "register";
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepo.save(user);
+
+        registrationService.registerNewUser(user);
         return "redirect:/login?registered=true";
     }
 }
